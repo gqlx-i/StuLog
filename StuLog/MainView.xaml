@@ -1,0 +1,59 @@
+﻿<UserControl x:Class="StuLog.MainView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:StuLog"
+             xmlns:V="clr-namespace:StuLog.View"
+             xmlns:VM="clr-namespace:StuLog.ViewModel"
+             mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance Type=local:MainViewModel}"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <DataTemplate DataType="{x:Type VM:TestViewModel}">
+            <V:TestView/>
+        </DataTemplate>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <ItemsControl ItemsSource="{Binding Param.Item.Examples}" Grid.Row="0" Grid.Column="0">
+            <ItemsControl.Template>
+                <ControlTemplate TargetType="{x:Type ItemsControl}">
+                    <GroupBox Header="Examples" Margin="3">
+                        <ItemsPresenter/>
+                    </GroupBox>
+                </ControlTemplate>
+            </ItemsControl.Template>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Button Content="{Binding Name}" Width="auto" Margin="5" Background="White" Command="{Binding DataContext.ShowCodeCommand,RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" CommandParameter="{Binding Name}"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <GroupBox Header="Operation" Grid.Row="0" Grid.Column="1" Margin="3">
+            <WrapPanel>
+                <Button Content="添加示例" Command="{Binding AddExCommand}" Width="60" Height="20" Margin="5"/>
+                <Button Content="删除示例" Command="{Binding DeleteExCommand}" Width="60" Height="20" Margin="5"/>
+                <Button Content="修改示例" Command="{Binding EditExCommand}" Width="60" Height="20" Margin="5"/>
+                <Button Content="查找示例" Command="{Binding FindExCommand}" Width="60" Height="20" Margin="5"/>
+                <Button Content="复制示例" Command="{Binding CopyExCommand}" Width="60" Height="20" Margin="5"/>
+            </WrapPanel>
+        </GroupBox>
+        <ContentControl Content="{Binding CurrentViewModel}" Grid.Row="1" Grid.Column="0"/>
+        <ScrollViewer Grid.Row="1" Grid.Column="1" HorizontalScrollBarVisibility="Hidden" Background="LightGreen">
+            <TextBlock Text="{Binding CurrentExample.Code}" TextAlignment="Left" FontSize="20"/>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

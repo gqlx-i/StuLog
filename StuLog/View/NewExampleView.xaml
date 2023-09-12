@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="StuLog.View.NewExampleView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:StuLog.ViewModel"
+             d:DataContext="{d:DesignInstance Type=local:NewExampleViewModel}"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Label Grid.Row="0" Grid.Column="0" Content="Name:" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="15"/>
+        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding ExampleOperation.Example.Name}" Width="100" Height="40" VerticalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <GroupBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Header="Code:">
+            <ScrollViewer>
+                <TextBox Text="{Binding ExampleOperation.Example.Code}" AcceptsReturn="True"/>
+            </ScrollViewer>
+        </GroupBox>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
+            <Button Content="完成" Command="{Binding FinishCommand}" FontSize="15" Margin="10,0" Background="White" Height="40" Width="100"/>
+            <Button Content="取消" Command="{Binding CancelCommand}" FontSize="15" Margin="10,0" Background="White" Height="40" Width="100"/>
+        </StackPanel>
+    </Grid>
+</UserControl>
